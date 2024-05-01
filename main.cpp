@@ -89,6 +89,26 @@ public:
 	{
 		appliances.push_back(a);
 	}
+
+        void removeAppliance() {
+        if (appliances.empty()) {
+            cout << "No appliances to remove." << endl;
+            return;
+        }
+
+        cout << "Enter the index of the appliance you want to remove: ";
+        int index;
+        cin >> index;
+
+        if (index < 0 || index >= appliances.size()) {
+            cout << "Invalid index." << endl;
+            return;
+        }
+
+        appliances.erase(appliances.begin() + index);
+        cout << "Appliance removed successfully." << endl;
+        }
+
 	void currentStatus()
 	{
 		cout << "Current Status of Appliances in Room " << name << ":" << endl;
@@ -206,6 +226,25 @@ public:
 		this->FaultLocation = FaultLocation;
 	}
 };
+
+
+class SolarPanelMonitor {
+private:
+    float threshold; // Threshold value for solar panel electricity output
+    bool alertTriggered; // Flag to track whether alert has been triggered
+
+public:
+    SolarPanelMonitor(float threshold) : threshold(threshold), alertTriggered(false) {}
+
+    void checkOutput(float output) {
+        if (output < threshold && !alertTriggered) {
+            std::cout << "ALERT: Solar panel electricity output is below the threshold!\n";
+            alertTriggered = true;
+        }
+    }
+};
+
+
 
 class ComplaintRecord {
 	vector<Complaints> List;
@@ -343,6 +382,7 @@ int main()
 		Room a;
 		Appliances b = Appliances("Bulb", 30, 2, 1, 1);
 		a.addAppliance(b);
+		a.removeAppliance();
 		a.report();
 		a.currentStatus();
 		bool clear;
@@ -350,6 +390,17 @@ int main()
 		if (clear)
 			clearScreen();
 	}
+    //modify this solarpanal
+    float thresholdValue = 50.0; // Example threshold value for solar panel output (adjust as needed)
+    SolarPanelMonitor monitor(thresholdValue);
+
+    // Example solar panel electricity output readings
+    float output1 = 45.0;
+    float output2 = 55.0;
+
+    // Check output and trigger alert if necessary
+    monitor.checkOutput(output1);
+    monitor.checkOutput(output2);
 }
 
 
