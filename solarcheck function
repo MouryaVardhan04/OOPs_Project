@@ -1,0 +1,32 @@
+#include <iostream>
+
+class SolarPanelMonitor {
+private:
+    float threshold; // Threshold value for solar panel electricity output
+    bool alertTriggered; // Flag to track whether alert has been triggered
+
+public:
+    SolarPanelMonitor(float threshold) : threshold(threshold), alertTriggered(false) {}
+
+    void checkOutput(float output) {
+        if (output < threshold && !alertTriggered) {
+            std::cout << "ALERT: Solar panel electricity output is below the threshold!\n";
+            alertTriggered = true;
+        }
+    }
+};
+
+int main() {
+    float thresholdValue = 50.0; // Example threshold value for solar panel output (adjust as needed)
+    SolarPanelMonitor monitor(thresholdValue);
+
+    // Example solar panel electricity output readings
+    float output1 = 45.0;
+    float output2 = 55.0;
+
+    // Check output and trigger alert if necessary
+    monitor.checkOutput(output1);
+    monitor.checkOutput(output2);
+
+    return 0;
+}
